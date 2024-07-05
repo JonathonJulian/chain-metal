@@ -21,7 +21,7 @@ ethereum:
     enabled: true
     nameOverride: execution
     image:
-      tag: v1.14.5
+      tag: v1.14.6
     resources:
       limits:
         memory: 32Gi
