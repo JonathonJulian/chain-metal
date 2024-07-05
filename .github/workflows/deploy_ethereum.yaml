@@ -6,7 +6,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: [self-hosted, k8s]
+    runs-on: [ ubuntu-latest ]
     env:
       CHART_PATH: charts/ethereum
       DEPLOYMENT_NAME: vc-ethereum
