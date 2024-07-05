@@ -29,7 +29,7 @@ This leverages [ethereum-helm-charts](https://github.com/ethpandaops/ethereum-he
 
 ```sh
 # Update Storage Class
-# Before installing the Helm charts, you need to update the storage class to match your environment.
+# Before installing the Helm charts, update the storage class to match your environment.
 # Edit the values.yaml files for both charts to specify the correct storageClassName.
 
 # Example:
