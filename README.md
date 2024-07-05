@@ -24,7 +24,6 @@ Additionally, this project includes functionality to create custom metrics or ot
 - Ethereum exporter with Grafana dashboard. The dashboard is stored as a ConfigMap and is automatically imported using the grafana dashboard provider.
 - Headless and ClusterIP services
 - Expandable to include many other clients, configurations, and custom metrics or applications
-- Path based storage to enable auto pruning (>= v1.14.0)
 
 ## Instructions
 
