@@ -22,7 +22,7 @@ Additionally, this project includes functionality to create custom metrics or ot
 - Real-time feed of custom data via WebSockets, currently showing a list of connected peers, accessible via the `/ui` route on the custom-metrics port (3737).
 - Custom peer count metric with labels for additional data such as enode and IP address.
 - Ethereum exporter with Grafana dashboard. The dashboard is stored as a ConfigMap and is automatically imported using the grafana dashboard provider.
-- Both Headless and ClusterIP services, depending on the use case.
+- Headless and ClusterIP services
 - Service monitors for Execution, Consensus, Ethereum Exporter, and Custom Exporter.
 - Expandable to include many other clients, configurations, and custom metrics or applications
 - Path based storage to enable auto pruning (>= v1.14.0)
