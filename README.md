@@ -15,10 +15,11 @@ Additionally, this project includes functionality to create custom metrics or ot
 - An existing storage class with ample disk capacity
 - Worker nodes should be labeled with `role=worker` or change the affinity rules as desired
 - ghcr creds stored as a secret on the namespace being used
+- Create a values file to match your environment
 
 ### Features
 
-- Custom exporter written in Go to supply metrics and/or application data from Geth. This can connect via IPC or HTTP. IPC is preferred to avoid enabling the Admin Api over http/ws.
+- Custom exporter written in Go to supply metrics and application data from Geth. This can connect via IPC or HTTP. IPC is preferred to avoid enabling the Admin Api over http/ws.
 - Real-time feed of custom data via WebSockets, currently showing a list of connected peers, accessible via the `/ui` route on the custom-metrics port (3737).
 - Custom peer count metric with labels for additional data such as enode and IP address.
 - Ethereum exporter with Grafana dashboard. The dashboard is stored as a ConfigMap and is automatically imported using the grafana dashboard provider.
@@ -29,24 +30,16 @@ Additionally, this project includes functionality to create custom metrics or ot
 ## Instructions
 
 ```sh
-# Update Storage Class
-# Before installing the Helm charts, update the storage class to match your environment.
-# Edit the values.yaml files for both charts to specify the correct storageClassName.
-
-# Example:
-# persistence:
-#   storageClassName: "your-storage-class"
-
 
 # Prometheus Chart
 cd charts/prometheus
 helm dependency update
-helm install my-prometheus-release . -f values.yaml
+helm install my-prometheus-release . -f my_values.yaml
 
 # Ethereum Chart
 cd charts/ethereum
 helm dependency update
-helm install my-ethereum-release . -f mainnet-prysm.yaml
+helm install my-ethereum-release . -f my_values.yaml
 
 
 # Configuration
