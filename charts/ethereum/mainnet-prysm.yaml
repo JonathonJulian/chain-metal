@@ -1,0 +1,164 @@
+ethereum:
+  global:
+    main:
+      network: mainnet
+      engineEndpoint: http://{{ .Release.Name }}-execution:8551
+      rpcEndpoint: http://{{ .Release.Name }}-execution:8545
+      beaconEndpoint: http://{{ .Release.Name }}-beacon:5052
+    checkpointSync:
+      enabled: true
+      addresses:
+        mainnet: https://mainnet-checkpoint-sync.attestant.io
+    clientArgs:
+      networks:
+        mainnet:
+          execution:
+            geth:
+              - --state.scheme=path
+          consensus:
+            prysm: []
+  geth:
+    enabled: true
+    nameOverride: execution
+    image:
+      tag: v1.14.5
+    resources:
+      limits:
+        memory: 32Gi
+      requests:
+        cpu: 5
+        memory: 20Gi
+    rbac:
+      create: false
+    serviceAccount:
+      name: execution
+    imagePullSecrets:
+      - name: ghcr-login-secret
+    httpPort: 8545
+    wsPort: 8546
+    p2pPort: 30303
+    persistence:
+      enabled: true
+      accessModes:
+        - ReadWriteOnce
+      size: 1500Gi
+      storageClassName: vsphere-nvme-sc
+    serviceMonitor:
+      enabled: true
+      namespace: mainnet
+      labels: {}
+      annotations: {}
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: role
+                  operator: In
+                  values:
+                    - worker
+    extraContainers:
+      - name: custom-exporter
+        image: ghcr.io/jonathonjulian/vc/custom-exporter:v0.0.1
+        ports:
+          - name: custom-metrics
+            containerPort: 3737
+        volumeMounts:
+          - name: storage
+            mountPath: /data
+        env:
+          - name: HTTP_FALLBACK
+            value: "false"
+          - name: GETH_IPC_PATH
+            value: /data/geth.ipc
+          - name: METRICS_LISTENER_PORT
+            value: "3737"
+    extraPorts:
+      - name: custom-metrics
+        port: 3737
+        targetPort: 3737
+        protocol: TCP
+
+  prysm:
+    enabled: true
+    image:
+      tag: v5.0.4
+    nameOverride: beacon
+    resources:
+      limits:
+        memory: 16Gi
+      requests:
+        cpu: 2
+        memory: 8Gi
+    rbac:
+      create: false
+    serviceMonitor:
+      enabled: true
+      namespace: mainnet
+    serviceAccount:
+      name: consensus
+    httpPort: 5052
+    p2pPort: 9000
+    checkpointSync:
+      enabled: "{{ default .Values.global.checkpointSync.enabled false }}"
+      url: "{{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}"
+    persistence:
+      enabled: true
+      accessModes:
+        - ReadWriteOnce
+      size: 150Gi
+      storageClassName: vsphere-nvme-sc
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: role
+                  operator: In
+                  values:
+                    - worker
+
+  ethereum-metrics-exporter:
+    enabled: true
+    config:
+      consensus:
+        enabled: true
+        url: "{{ tpl  .Values.global.main.beaconEndpoint . }}"
+        name: consensus-client
+      execution:
+        enabled: true
+        url: "{{ tpl  .Values.global.main.rpcEndpoint . }}"
+        name: execution-client
+        modules:
+          - eth
+          - net
+          - web3
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: role
+                  operator: In
+                  values:
+                    - worker
+    serviceMonitor:
+      enabled: true
+      namespace: mainnet
+      interval: 15s
+      scheme: http
+      scrapeTimeout: 10s
+
+customExporter:
+  serviceMonitor:
+    enabled: true
+    path: /metrics
+    port: custom-metrics
+    namespace: mainnet
+    labels: {}
+    annotations: {}
+    interval: 15s
+    scheme: http
+    tlsConfig: {}
+    scrapeTimeout: 10s
+    relabelings: []

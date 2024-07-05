@@ -1,0 +1,43 @@
+{{- if .Values.customExporter.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "ethereum.geth.customServiceMonitorName" . }}
+  {{- if .Values.customExporter.serviceMonitor.namespace }}
+  namespace: {{ .Values.customExporter.serviceMonitor.namespace }}
+  {{- end }}
+  labels:
+    {{- include "ethereum.geth.labels" . | nindent 4 }}
+    {{- if .Values.customExporter.serviceMonitor.labels }}
+    {{- toYaml .Values.customExporter.serviceMonitor.labels | nindent 4 }}
+    {{- end }}
+  {{- if .Values.customExporter.serviceMonitor.annotations }}
+  annotations:
+    {{ toYaml .Values.customExporter.serviceMonitor.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  endpoints:
+    - interval: {{ .Values.customExporter.serviceMonitor.interval }}
+      {{- if .Values.customExporter.serviceMonitor.scrapeTimeout }}
+      scrapeTimeout: {{ .Values.customExporter.serviceMonitor.scrapeTimeout }}
+      {{- end }}
+      honorLabels: true
+      port: {{ .Values.customExporter.serviceMonitor.port }}
+      path: {{ .Values.customExporter.serviceMonitor.path }}
+      scheme: {{ .Values.customExporter.serviceMonitor.scheme }}
+      {{- if .Values.customExporter.serviceMonitor.tlsConfig }}
+      tlsConfig:
+        {{- toYaml .Values.customExporter.serviceMonitor.tlsConfig | nindent 6 }}
+      {{- end }}
+      {{- if .Values.customExporter.serviceMonitor.relabelings }}
+      relabelings:
+        {{- toYaml .Values.customExporter.serviceMonitor.relabelings | nindent 4 }}
+      {{- end }}
+  jobLabel: "{{ .Release.Name }}"
+  selector:
+    matchLabels:
+      {{- include "ethereum.geth.selectorLabels" . | nindent 8 }}
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+{{- end }}
