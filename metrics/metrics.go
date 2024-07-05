@@ -96,7 +96,7 @@ func UpdatePeerMetrics() error {
 		name := peer.Name
 		localAddress := peer.Network.LocalAddress
 		remoteAddress := peer.Network.RemoteAddress
-		version := peer.Protocols["eth"].Version
+		version := string(peer.Protocols["eth"].Version)
 		enode := peer.Enode
 		peerCountGauge.WithLabelValues(id, version, name, localAddress, remoteAddress, enode).Set(float64(len(peers)))
 
