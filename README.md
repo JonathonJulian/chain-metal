@@ -6,7 +6,7 @@ Instructions for deploying an Ethereum Mainnet Full Node using Geth and Prysm, m
 
 This leverages [ethereum-helm-charts](https://github.com/ethpandaops/ethereum-helm-charts), which is actively maintained and provides support for many clients and configurations.
 
-Additionally, this project includes functionality to create custom metrics or other data formats that can be displayed on a webpage.
+Additionally, this project includes functionality to create custom metrics or other data formats that can be subscribed to over WebSockets.
 
 ### Prerequisites
 
