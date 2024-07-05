@@ -54,7 +54,7 @@ helm install my-ethereum-release . -f mainnet-prysm.yaml
 # Defaults can be found online or in the charts/defaults directory
 
 # Access
-# Port forward RPC, Grafana, Prometheus, Custom UI, Custom metrics, or access via Twingate using the cluster domain DNS namespace
+# Port forward RPC, Grafana, Prometheus, Custom UI, Custom metrics, or access via Twingate using the cluster domain
 # The Grafana default credentails are  admin:admin, you will be prompted to change on first login
 
 
