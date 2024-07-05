@@ -2,9 +2,11 @@
 
 ## Overview
 
-Instructions for deploying an Ethereum Mainnet Full Node using Geth and Prysm, monitored using the Prometheus stack. Additionally, this project includes functionality to create custom metrics or other data that can be exported or displayed on a webpage.
+Instructions for deploying an Ethereum Mainnet Full Node using Geth and Prysm, monitored using the Prometheus stack. 
 
 This leverages [ethereum-helm-charts](https://github.com/ethpandaops/ethereum-helm-charts), which is actively maintained and provides support for many clients and configurations.
+
+Additionally, this project includes functionality to create custom metrics or other data formats that can be displayed on a webpage.
 
 ### Prerequisites
 
