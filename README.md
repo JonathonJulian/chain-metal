@@ -48,7 +48,7 @@ helm dependency update
 helm install my-ethereum-release . -f mainnet-prysm.yaml
 
 
-#Configuration
+# Configuration
 # Defaults can be found online or in the charts/defaults directory
 
 # Access
