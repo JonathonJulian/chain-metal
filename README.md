@@ -13,9 +13,8 @@ Additionally, this project includes functionality to create custom metrics or ot
 - Kubernetes cluster up and running
 - Helm and kubectl are installed
 - An existing storage class with ample disk capacity
-- Worker nodes should be labeled with `role=worker` or change the affinity rules as desired
+- A values file to match your environment
 - ghcr creds stored as a secret on the namespace being used
-- Create a values file to match your environment
 
 ### Features
 
