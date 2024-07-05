@@ -22,6 +22,10 @@ jobs:
       with:
         service-key: ${{ secrets.TWINGATE_SERVICE_KEY }}
 
+    - name: Install Helm Diff
+      run: |
+        helm plugin install https://github.com/databus23/helm-diff
+
     - name: Set up KUBECONFIG
       run: |
         mkdir -p ~/.kube
