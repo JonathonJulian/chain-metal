@@ -18,7 +18,7 @@ Additionally, this project includes functionality to create custom metrics or ot
 
 ### Features
 
-- Custom exporter written in Go to supply metrics and/or application data from Geth. This can connect cia IPC or HTTP. IPC is preferred to avoid enabling the Admin Api over http/ws.
+- Custom exporter written in Go to supply metrics and/or application data from Geth. This can connect via IPC or HTTP. IPC is preferred to avoid enabling the Admin Api over http/ws.
 - Real-time feed of custom data via WebSockets, currently showing a list of connected peers, accessible via the `/ui` route on the custom-metrics port (3737).
 - Custom peer count metric with labels for additional data such as enode and IP address.
 - Ethereum exporter with Grafana dashboard. The dashboard is stored as a ConfigMap and is automatically imported using the grafana dashboard provider.
