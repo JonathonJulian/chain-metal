@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ethereum-grafana-dashboards
+  labels:
+    app: {{ .Chart.Name }}
+    grafana_dashboard: "1"
+data:
+{{- $files := .Files.Glob "dashboards/*.json" }}
+{{- range $path, $file := $files }}
+  {{ base $path }}: |
+{{ $file | toString | indent 4 }}
+{{- end }}

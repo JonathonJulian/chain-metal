@@ -1,0 +1,37 @@
+name: Deploy Ethereum with Prysm and Custom Exporter
+run-name: Deploy Ethereum Mainnet with Prysm and Custom Exporter by ${{ github.actor }}
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, k8s]
+    env:
+      CHART_PATH: charts/ethereum
+      DEPLOYMENT_NAME: vc-ethereum
+      NAMESPACE: mainnet
+      VALUES: mainnet-prysm.yaml
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up KUBECONFIG
+      run: |
+        mkdir -p ~/.kube
+        echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
+        chmod 600 ~/.kube/config
+
+    - name: Install Helm Dependencies
+      run: |
+        helm dependency update ${{ env.CHART_PATH }}
+
+    - name: Print Helm Diff
+      run: |
+        helm diff --context=3 upgrade --color --allow-unreleased --namespace ${{ env.NAMESPACE }} ${{ env.DEPLOYMENT_NAME }} ${{ env.CHART_PATH }} -f ${{ env.CHART_PATH }}/${{ env.VALUES }}
+
+    - name: Helm Deploy
+      run: |
+        helm upgrade --install --wait --timeout 5m  --namespace ${{ env.NAMESPACE }} ${{ env.DEPLOYMENT_NAME }} ${{ env.CHART_PATH }} -f ${{ env.CHART_PATH }}/${{ env.VALUES }}
+
