@@ -23,7 +23,6 @@ Additionally, this project includes functionality to create custom metrics or ot
 - Custom peer count metric with labels for additional data such as enode and IP address.
 - Ethereum exporter with Grafana dashboard. The dashboard is stored as a ConfigMap and is automatically imported using the grafana dashboard provider.
 - Headless and ClusterIP services
-- Service monitors for Execution, Consensus, Ethereum Exporter, and Custom Exporter.
 - Expandable to include many other clients, configurations, and custom metrics or applications
 - Path based storage to enable auto pruning (>= v1.14.0)
 
@@ -51,11 +50,16 @@ helm install my-ethereum-release . -f mainnet-prysm.yaml
 
 
 # Configuration
-# Defaults can be found online or in the charts/defaults directory
+Defaults can be found here
+https://github.com/ethpandaops/ethereum-helm-charts/blob/master/charts/ethereum-node/values.yaml
+https://github.com/ethpandaops/ethereum-helm-charts/blob/master/charts/geth/values.yaml
+https://github.com/ethpandaops/ethereum-helm-charts/blob/master/charts/prysm/values.yaml
+https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
+https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
 
 # Access
-# Port forward RPC, Grafana, Prometheus, Custom UI, Custom metrics, or access via Twingate using the cluster domain
-# The Grafana default credentails are  admin:admin, you will be prompted to change on first login
+Port forward RPC, Grafana, Prometheus, Custom UI, Custom metrics, or access via Twingate using the cluster domain
+The Grafana default credentails are  admin:admin, you will be prompted to change on first login
 
 
 
