@@ -45,7 +45,7 @@ Defaults can be found here:
 ### Access
 
 Port forward RPC, Grafana, Prometheus, Custom UI, Custom metrics, or access via Twingate using the cluster domain.
-The Grafana default credentials are admin:admin; you will be prompted to change them on the first login.
+The Grafana default credentials are admin:admin; you will be prompted to change the password on first login
 
 ## Instructions
 
