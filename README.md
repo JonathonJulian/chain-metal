@@ -38,7 +38,7 @@ Defaults can be found here:
 - [Ethereum Node](https://github.com/ethpandaops/ethereum-helm-charts/blob/master/charts/ethereum-node/values.yaml)
 - [Geth](https://github.com/ethpandaops/ethereum-helm-charts/blob/master/charts/geth/values.yaml)
 - [Prysm](https://github.com/ethpandaops/ethereum-helm-charts/blob/master/charts/prysm/values.yaml)
-- [Ethereum Validator Metrics Exporter](https://github.com/ethpandaops/ethereum-helm-charts/blob/master/charts/ethereum-validator-metrics-exporter/values.yaml)
+- [Ethereum Metrics Exporter](https://github.com/ethpandaops/ethereum-helm-charts/blob/master/charts/ethereum-metrics-exporter/values.yaml)
 - [Kube Prometheus Stack](https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml)
 - [Grafana](https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml)
 
