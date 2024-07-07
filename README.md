@@ -30,7 +30,7 @@ This project is currently running on RKE2 v1.30.1+rke2r1 utilizing vSphere CPI a
 - [Rancher vSphere CSI](https://github.com/rancher/rke2-charts/blob/main/charts/rancher-vsphere-csi/rancher-vsphere-csi/3.1.2-rancher400/values.yaml)
 - [Rancher vSphere CPI](https://github.com/rancher/rke2-charts/blob/main/charts/rancher-vsphere-cpi/rancher-vsphere-cpi/1.7.001/values.yaml)
 
-In addition to container volume provisioning, this also enables features such as volume snapshots and restore. This can be further expanded to use features such as vSAN enabling a scalable bare metal architecture with high-performance storage.
+In addition to container volume provisioning, this also enables features such as volume snapshots and restore capabilities. This can be further expanded to use products such as vSAN, enabling a scalable, bare-metal architecture with high-performance storage
 
 ### Configuration
 
