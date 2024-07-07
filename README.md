@@ -13,7 +13,7 @@ Additionally, this project includes functionality to create custom metrics or ot
 - Kubernetes cluster up and running
 - Helm and kubectl are installed
 - An existing storage class with ample disk capacity
-- A values file to match your environment
+- Values files to match your environment
 - ghcr credentials stored as a secret in the namespace being used
 
 ### Features
