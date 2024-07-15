@@ -83,10 +83,6 @@ func UpdatePeerMetrics() error {
 		return err
 	}
 
-	log.Printf("Peers response: %v", peers)
-
-	log.Printf("Connected peers: %d", len(peers))
-
 	for _, peer := range peers {
 		if !validation.ValidatePeer(peer) {
 			continue
@@ -98,7 +94,13 @@ func UpdatePeerMetrics() error {
 		remoteAddress := peer.Network.RemoteAddress
 		version := string(peer.Protocols["eth"].Version)
 		enode := peer.Enode
+
+		log.Printf("Version type: %T, Version value: %v", version, version)
+
 		peerCountGauge.WithLabelValues(id, version, name, localAddress, remoteAddress, enode).Set(float64(len(peers)))
+
+		log.Printf("Metric written: id=%s, version=%s, name=%s, localAddress=%s, remoteAddress=%s, enode=%s, peerCount=%d",
+			id, version, name, localAddress, remoteAddress, enode, len(peers))
 
 	}
 	return nil
