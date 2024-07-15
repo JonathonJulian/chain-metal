@@ -95,12 +95,7 @@ func UpdatePeerMetrics() error {
 		version := string(peer.Protocols["eth"].Version)
 		enode := peer.Enode
 
-		log.Printf("Version type: %T, Version value: %v", version, version)
-
 		peerCountGauge.WithLabelValues(id, version, name, localAddress, remoteAddress, enode).Set(float64(len(peers)))
-
-		log.Printf("Metric written: id=%s, version=%s, name=%s, localAddress=%s, remoteAddress=%s, enode=%s, peerCount=%d",
-			id, version, name, localAddress, remoteAddress, enode, len(peers))
 
 	}
 	return nil
