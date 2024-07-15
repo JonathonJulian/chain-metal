@@ -59,7 +59,7 @@ ethereum:
                     - worker
     extraContainers:
       - name: custom-exporter
-        image: ghcr.io/jonathonjulian/vc/custom-exporter:v0.0.3
+        image: ghcr.io/jonathonjulian/vc/custom-exporter:v1.0.0
         ports:
           - name: custom-metrics
             containerPort: 3737
