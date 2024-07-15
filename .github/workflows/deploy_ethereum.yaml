@@ -43,4 +43,3 @@ jobs:
     - name: Helm Deploy
       run: |
         helm upgrade --install --wait --timeout 5m  --namespace ${{ env.NAMESPACE }} ${{ env.DEPLOYMENT_NAME }} ${{ env.CHART_PATH }} -f ${{ env.CHART_PATH }}/${{ env.VALUES }}
-

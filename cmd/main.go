@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"custom-geth-exporter/metrics"
 	"custom-geth-exporter/ui"
@@ -21,6 +22,16 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to initialize Ethereum client: %v", err)
 	}
+
+	go func() {
+		ticker := time.NewTicker(1 * time.Second)
+		defer ticker.Stop()
+		for range ticker.C {
+			if err := metrics.UpdatePeerMetrics(); err != nil {
+				log.Printf("Failed to update peer metrics: %v", err)
+			}
+		}
+	}()
 
 	http.Handle("/metrics", promhttp.Handler())
 	http.HandleFunc("/ui", ui.ServeUI)
